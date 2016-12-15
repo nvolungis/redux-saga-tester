@@ -170,6 +170,11 @@ var SagaIntegrationTester = function () {
 
             return this._addAction(actionType, futureOnly).promise;
         }
+    }, {
+        key: 'done',
+        value: function done() {
+            return this.sagaMiddleware.done;
+        }
     }]);
     return SagaIntegrationTester;
 }();

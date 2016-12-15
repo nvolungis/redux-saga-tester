@@ -98,4 +98,8 @@ export default class SagaIntegrationTester {
     waitFor(actionType, futureOnly = false) {
         return this._addAction(actionType, futureOnly).promise;
     }
+
+    done () {
+        return this.sagaMiddleware.done
+    }
 }
