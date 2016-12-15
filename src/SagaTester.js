@@ -13,14 +13,14 @@ const makeResettable = (reducer, initialStateSlice) => (state, action) => {
 export const resetAction = { type : RESET_TESTER_ACTION_TYPE };
 
 export default class SagaIntegrationTester {
-    constructor({initialState = {}, reducers, middlewares = [], _combineReducers = combineReducers}) {
+    constructor({initialState = {}, reducers, middlewares = [], prepareReducers = combineReducers}) {
         this.actionsCalled  = [];
         this.actionLookups  = {};
         this.sagaMiddleware = createSagaMiddleware();
 
         // Wrap reducers so they can be reset, or supply identity reducer as default
         const finalReducer = reducers
-            ? _combineReducers(Object.keys(reducers).reduce((rc, reducerName) => ({
+            ? prepareReducers(Object.keys(reducers).reduce((rc, reducerName) => ({
                     ...rc,
                     [reducerName] : makeResettable(reducers[reducerName], initialState[reducerName])
                 }), {}))

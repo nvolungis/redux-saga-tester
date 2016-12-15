@@ -63,9 +63,8 @@ var SagaIntegrationTester = function () {
             reducers = _ref.reducers,
             _ref$middlewares = _ref.middlewares,
             middlewares = _ref$middlewares === undefined ? [] : _ref$middlewares,
-            _ref$_combineReducers = _ref._combineReducers,
-            _combineReducers = _ref$_combineReducers === undefined ? _redux.combineReducers : _ref$_combineReducers;
-
+            _ref$prepareReducers = _ref.prepareReducers,
+            prepareReducers = _ref$prepareReducers === undefined ? _redux.combineReducers : _ref$prepareReducers;
         (0, _classCallCheck3.default)(this, SagaIntegrationTester);
 
         this.actionsCalled = [];
@@ -73,7 +72,7 @@ var SagaIntegrationTester = function () {
         this.sagaMiddleware = (0, _reduxSaga2.default)();
 
         // Wrap reducers so they can be reset, or supply identity reducer as default
-        var finalReducer = reducers ? _combineReducers((0, _keys2.default)(reducers).reduce(function (rc, reducerName) {
+        var finalReducer = reducers ? prepareReducers((0, _keys2.default)(reducers).reduce(function (rc, reducerName) {
             return (0, _extends4.default)({}, rc, (0, _defineProperty3.default)({}, reducerName, makeResettable(reducers[reducerName], initialState[reducerName])));
         }, {})) : function (state) {
             return state;
